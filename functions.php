@@ -22,6 +22,7 @@ if(function_exists('add_theme_support')) {
     add_image_size( $name = 'box-produto', $width = 210, $height = 160, $crop = true );
     add_image_size( $name = 'slider', $width = 700, $height = 360, $crop = true );
     add_image_size( $name = 'box-produto-categoria', $width = 345, $height = 280, $crop = true );
+    add_image_size( $name = 'marcas-pagina', $width = 200, $height = 200, $crop = false );
 }
 
 //======================= // CPT - Móveis

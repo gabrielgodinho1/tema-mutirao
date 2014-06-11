@@ -119,9 +119,9 @@
 				          </ul>
 				        </li>
 
-				      <li><a href="#">utilidades</a></li>
-				      <li><a href="#">cama, mesa & banho</a></li>
-				      <li><a href="#">roupas</a></li>
+				      <li><a href="<?php bloginfo('url'); ?>/utilidades">utilidades</a></li>
+				      <li><a href="<?php bloginfo('url'); ?>/cama-mesa-banho">cama, mesa & banho</a></li>
+				      <li><a href="<?php bloginfo('url'); ?>/roupas">roupas</a></li>
 				      <li><a class="active" href="#">ofertas</a></li>
 						
 				    </div><!-- /.navbar-collapse -->

@@ -1,59 +1,93 @@
-
-
 <?php get_header();?>
 
-<section id="quem-somos">
-  <div class="container_12">
-    <div class="grid_4"><h2 class="titulo-de-secao">Conheça<br/><span>os fatos</span></h2></div>
+<!-- INSERIR NO ESTILO PRINCIPAL -->
+<style type="text/css">
+  .alignleft { float: left; margin-right: 20px; }
+  .alignright { float: right; margin-left: 20px; }
+  .aligncenter { float: none; clear: both; margin: auto; }
+
+  .wp-caption {
+    display: block;
+    padding: 10px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    background: #f0f0f0;
+    border-bottom: #ccc 1px solid;
+  }
+    .wp-caption a { border: none; }
+    .wp-caption img {
+      width: 100%;
+      margin-bottom: 10px;
+    }
+    .wp-caption p {
+      font-size: 12px;
+      font-style: italic;
+      text-align: center;
+    }
+  
+  .marcas {
+    margin-top: 80px;
+  }
+  ul.lista-marcas {
+    margin: 20px 0 0 0;
+    overflow: hidden;
+  }
+    ul.lista-marcas li {
+      display: block;
+      float: left;
+      width: 20%;
+      height: 150px;
+      margin-right: 5%;
+    }
+      ul.lista-marcas li:nth-child(4n+4) {
+        margin-right: 0;
+      }
+      ul.lista-marcas li img {
+        max-width: 100%;
+        max-height: 100%;
+      }
+
+</style>
+
+<div class="container_12">
+  <ol class="breadcrumb grid_12">
+    <?php breadcrumb_trail(); ?>
+  </ol>
+</div>
     
-    <div class="grid_8"><?php the_field('quem_somos','option'); ?></div>
-  </div>
-</section>
+<div class="container_12">
     
-<section id="equipe">
-  <div class="container_12">
-    <div class="grid_4"><h2 class="titulo-de-secao">Quem<br/><span>faz o quê</span></h2></div>
-      <div class="grid_8">
-        <?php while(the_repeater_field('equipe', 'option')): ?>
-            <div class="pessoa-equipe">
-                     <?php 
-                    $attachment_id = get_sub_field('imagem_da_pessoa');
-                    $size = "thumbnail";
-                    $image = wp_get_attachment_image_src( $attachment_id, $size );
-                    ?>
-                    <img src="<?php echo $image[0]; ?>" />
-                    <h3><?php the_sub_field('nome_da_pessoa', 'option'); ?></h2>
-                    <h4><?php the_sub_field('funcao', 'option'); ?></h4>
-                    <p><?php the_sub_field('resumo', 'option'); ?></p>
-                </div>
-        <?php endwhile; ?>
+    <div class="sidebar grid_3">
+      <?php include (TEMPLATEPATH . '/sidebar-index.php'); ?>
+    </div>
+
+    <div class="conteudo grid_9">
+      <div class="titulo-wrap">
+        <h1 class="titulo-secao seta-azul"><?php the_title(); ?></h1>
       </div>
-  </div>
-</section>
+      
+      <div class="entry">
+        <?php if ( have_posts() ) : while ( have_posts() ) : the_post(); ?>
+          <?php the_content(); ?>
 
-<section id="contato">
-  <div class="container_12">
-    <div class="grid_4"><h2 class="titulo-de-secao">Fale<br/><span>com a gente</span></h2></div>
-    <div class="grid_8"><?php echo do_shortcode('[contact-form-7 id="99" title="Contato"]'); ?></div>
-  </div>
-</section>
+          <?php if( have_rows('lista_de_marcas') ): ?>
+          <div class="marcas">
+            <div class="titulo-wrap">
+              <h2 class="titulo-secao seta-azul">Marcas</h2>
+            </div>
+            <ul class="lista-marcas">
+                <?php while ( have_rows('lista_de_marcas') ) : the_row(); ?>
+                  <li><img src="<?php the_sub_field('logo'); ?>"></li>
+                <?php endwhile; ?>
+            </ul> <!-- /marcas -->
+          </div>
+          <?php endif; ?> <!-- /acf -->
 
-<script type="text/javascript">
-  // ==========  ROLAGEM DA ANCORA =============
-  $(function() {
-       $('a[href*=#]:not([href=#])').click(function() {
-         if (location.pathname.replace(/^\//,'') == this.pathname.replace(/^\//,'') && location.hostname == this.hostname) {
-           var target = $(this.hash);
-           target = target.length ? target : $('[name=' + this.hash.slice(1) +']');
-           if (target.length) {
-             $('html,body').animate({
-               scrollTop: target.offset().top
-             }, 1000);
-             return false;
-           }
-         }
-       });
-     });
-</script>
+        <?php endwhile; endif; ?> <!-- /loop -->
+      </div> <!-- /conteudo -->
+
+    </div> <!-- /conteudo -->
+
+  </div>
 
 <?php get_footer(); ?>
